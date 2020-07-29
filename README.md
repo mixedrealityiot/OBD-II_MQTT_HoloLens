@@ -16,7 +16,7 @@ ToDo (Kevin & Steven) - Embed link to Youtube video
 
 The architecture for this project is depicted below and described in the following sections:
 
-![Architecture](/media/overview.png "Architecture")
+![Architecture](/media/overview_sphere.png "Architecture")
 
 ## HoloLens
 
@@ -70,48 +70,52 @@ Update MQTT Settings
 
 The OBD-II reader is comprised of:
 
-- [Arduino MKR1000](https://www.sparkfun.com/products/14394) running the ```mkr1000\mqttobd2_1.ino``` sketch.
+- [Azure Sphere MT3620](https://www.seeedstudio.com/Azure-Sphere-MT3620-Development-Kit-US-Version-p-3052.html) running the ```Sphere_HighLevelApp\```.
 - [SparkFun Car Diagnostics Kit](https://www.sparkfun.com/products/10769) an OBD to UART interpreter
 - [OBD-II to DB9 Cable](https://www.sparkfun.com/products/10087)
-- [Logic Level Converter](https://www.sparkfun.com/products/12009) (optional) to protect the MKR1000 when connecting a 3.3V device to a 5V system
-- Breadboard
+- Breadboard (optional)
 
 The following is a schematic view of the wiring.
 
-![Schematic](/media/mkr1000_OBD.png "Schematic")
+![Schematic](/media/Sphere_OBDII.png "Schematic")
 
 Here are some pictures of the assembled OBD-II reader.
 
-**Front**
-![Front](/media/obdfront.jpg "Front")
+![Front](/media/SphereOBDFront.jpeg "Front")
 
-**Back**
-![Back](/media/obdback.jpg "Back")
+## Azure Sphere
 
-## Arduino Sketch
+If you are new to Azure Sphere, check out this page for [Quick Start](https://docs.microsoft.com/en-us/azure-sphere/install/overview) 
 
-Before deploying the sketch to the MKR1000, update the Wi-Fi and MQTT connection information.
+### Configure Wifi ###
 
-```C
-char ssid[] = "your ssid";        // your network SSID (name)
-char pass[] = "your wifi password";    // your network password (use for WPA, or use as key for WEP)
+Refer [here](https://docs.microsoft.com/en-us/azure-sphere/install/configure-wifi) for  Sphere Wifi configuration
 
-int status = WL_IDLE_STATUS;
+### Prepare the sample ###
 
-WiFiClient wificlient;
-PubSubClient mqttclient(wificlient);
+1. Even if you've performed this setup previously, ensure you have Azure Sphere SDK version 20.04 or above. At the command prompt, run azsphere show-version to check. Install the Azure Sphere SDK as needed.
 
-const char* mqtt_server = "IP or DNS name of your local MQTT broker";
-char mqtt_clientname[] = "odbreader";
-char mqtt_topic[] = "vehicle/telemetry";
+1. Connect your Azure Sphere device to your computer by USB.
 
-unsigned long lastConnectionTime = 0;
-const unsigned long uploadInterval = 500L; // Delay between publishing
-```
+1. Enable application development, if you have not already done so, by entering the following line at the command prompt:
 
-The code publishes coolant temperature, RPM and fuel to the ```vehicle/telemetry``` MQTT topic every 500ms. You can change the polling interval by changing ```uploadInterval```. Note: polling too frequently or for too much information will make the OBD-II reader return erratic results or hang.
+    azsphere device enable-development
 
-The MQTT client library used in the sketch comes from [https://github.com/knolleary/pubsubclient/](https://github.com/knolleary/pubsubclient/) and has some limitations (e.g. can only publish using QoS 0, no MQTT 5 support, etc).
+### Build and run the sample ###
+
+See the following Azure Sphere Quickstarts to learn how to build and deploy this sample:
+
+   -  [with Visual Studio](https://docs.microsoft.com/azure-sphere/install/qs-blink-application)
+   -  [with VS Code](https://docs.microsoft.com/azure-sphere/install/qs-blink-vscode)
+   -  [on the Windows command line](https://docs.microsoft.com/azure-sphere/install/qs-blink-cli)
+   -  [on the Linux command line](https://docs.microsoft.com/azure-sphere/install/qs-blink-linux-cli)
+
+Add MQTT broker IP address in **app_manifest.json** (```allowed_connection```) and **main.c** (```mqttConf_brokerIp```)
+
+The code publishes coolant temperature, RPM and fuel to the ```vehicle/telemetry``` MQTT topic every 500ms. You can change the polling interval by changing ```MQTT_PUBLISH_PERIOD```. Note: polling too frequently or for too much information will make the OBD-II reader return erratic results or hang.
+
+### Third Party Libraries Used ###
+- The MQTT client library used in the Sphere comes from [https://github.com/LiamBindle/MQTT-C/](https://github.com/LiamBindle/MQTT-C/)
 
 ## MQTT Broker
 
@@ -125,7 +129,7 @@ In reality, the MQTT broker can be any MQTT 3.1.1 or 3.1 compliant broker runnin
 # Folder Structure
 
 - **HoloLens** - Contain the Unity project for the HoloLens app that includes the UI and the code to receive and display data from an MQTT broker.
-- **mkr1000** - Contains the Arduino sketch (.ino) file that polls a vehicle's OBD-II port for Coolant Temperature, Current RPM and Fuel and sends the data to an MQTT broker over Wi-Fi.
+- **Sphere_HighLevelApp** - Contains the Azure Sphere source code that polls a vehicle's OBD-II port for Coolant Temperature, Current RPM and Fuel and sends the data to an MQTT broker over Wi-Fi.
 
 # References
 
