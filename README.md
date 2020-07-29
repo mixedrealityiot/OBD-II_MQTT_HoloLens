@@ -20,18 +20,16 @@ The architecture for this project is depicted below and described in the followi
 
 ## HoloLens
 
-### Getting Started
-
 ### Prerequisites
 
-- Visual Studio 2019
 - Unity 2019.4.X (This project used 2019.4.1f1)
+- Visual Studio 2019
 - Windows SDK 18362+
 - Universal Windows Build Support for Unity
 
 ### How to Deploy
 
-After cloning or downloading the repository, open the “HoloLens” project folder in Unity.
+After cloning or downloading the repository, open the “HoloLens” project folder in Unity. More information on how to deploy to HoloLens can be found here https://microsoft.github.io/MixedRealityToolkit-Unity/Documentation/BuildAndDeploy.html
 
 Ensure that the target platform is Universal Windows Platform:
 
@@ -126,8 +124,7 @@ In reality, the MQTT broker can be any MQTT 3.1.1 or 3.1 compliant broker runnin
 
 # Folder Structure
 
-ToDo (Kevin & Steven) - As folders are created, list here and describe folder structure.
-
+- **HoloLens** - Contain the Unity project for the HoloLens app that includes the UI and the code to receive and display data from an MQTT broker.
 - **mkr1000** - Contains the Arduino sketch (.ino) file that polls a vehicle's OBD-II port for Coolant Temperature, Current RPM and Fuel and sends the data to an MQTT broker over Wi-Fi.
 
 # References
