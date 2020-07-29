@@ -20,7 +20,53 @@ The architecture for this project is depicted below and described in the followi
 
 ## HoloLens
 
-ToDo (Steven) - Describe HL app with Paho MQTT client. Include build env info and any workarounds to get MQTT client working.
+### Getting Started
+
+### Prerequisites
+
+- Visual Studio 2019
+- Unity 2019.4.X (This project used 2019.4.1f1)
+- Windows SDK 18362+
+- Universal Windows Build Support for Unity
+
+### How to Deploy
+
+After cloning or downloading the repository, open the “HoloLens” project folder in Unity.
+
+Ensure that the target platform is Universal Windows Platform:
+
+- Open menu : File > Build Settings
+- Select Universal Windows Platform in the Platform list
+- Click the Switch Platform button
+
+Ensure that Windows Mixed Reality SDK has been added
+- Navigate to Edit > Project Settings, Player
+- Under XR Settings in the UWP tab, make sure Virtual Reality Supported is enabled, - and the Windows Mixed Reality SDK has been added to SDKs.
+
+Build a Visual Studio solution
+- Open menu : File > Build Settings
+- Press build
+
+Build to HoloLens
+- Plug the HoloLens into the computer
+- Open Visual Studio solution
+- Update Solution settings
+    - Solution Configuration: Release
+    - Solution Platform: X86 for HoloLens 1 or ARM64 for HoloLens 2
+    - Target: Device
+- Deploy to Device
+
+Update MQTT Settings
+- Update MQTT settings by navigating to the settings menu in the HoloLens app, updating the values, and pressing the connect and subscribe buttons.
+
+### Third Party Libraries Used
+- MRTK v2.3.0 - https://github.com/microsoft/MixedRealityToolkit-Unity/releases
+    - Cross-platform toolkit for building Mixed Reality experiences.
+- JSON .NET For Unity - https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347
+    - HoloLens compatible library for serialization.
+- M2Mqtt - https://www.nuget.org/packages/M2Mqtt/ 
+    - Library for the MQTT client. We used .net 4.5 for this project.
+
 
 ## OBD-II Reader
 
