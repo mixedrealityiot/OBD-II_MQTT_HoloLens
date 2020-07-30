@@ -96,7 +96,7 @@ If you are new to Azure Sphere, check out this page for [Quick Start](https://do
 
 ### Configure Wifi ###
 
-Refer [here](https://docs.microsoft.com/en-us/azure-sphere/install/configure-wifi) for  Sphere Wifi configuration
+You may refer [here](https://docs.microsoft.com/en-us/azure-sphere/install/configure-wifi) for  Sphere Wifi configuration
 
 ### Prepare the sample ###
 
@@ -146,7 +146,7 @@ In reality, the MQTT broker can be any MQTT 3.1.1 compliant broker running on vi
 
 - [CarSmart](https://www.hackster.io/pilgrimbill/carsmart-88164a)
 - [IoT4Car](https://www.hackster.io/frankzhao/iot4car-1b07f1)
-
+- [Azure-Sphere-Home-Process-Controller](https://github.com/Tai-Min/Azure-Sphere-Home-Process-Controller)
 # Who we are and why
 
 For more background information, visit the [starthere](https://github.com/mixedrealityiot/starthere/blob/master/README.md) repo.
