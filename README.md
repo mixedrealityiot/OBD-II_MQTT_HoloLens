@@ -1,22 +1,29 @@
 # Overview
-This repo contains a prototype that demonstrates how to stream a vehicle's OBD-II data to HoloLens using MQTT, without the latency involved with sending the data to the cloud and back to the HoloLens.
+This repo contains a prototype that demonstrates how to stream a vehicle's OBD-II data to HoloLens using [Azure Sphere](https://azure.microsoft.com/en-us/services/azure-sphere/) over [MQTT](https://en.wikipedia.org/wiki/MQTT), without the latency involved with sending the data to the cloud and back to the HoloLens.
+
+# Digital Field Worker
+***We want to set the Digital Field Worker of the future free of serial cables, diagnostic ports and telnet!***
+
+The Digital Field Worker of the future will be required to diagnose and repair complex, expensive, heavily instrumented equipment. Existing solutions such as HoloLens Guides and Remote Assist are extremely helpful. But what if we could also infuse real-time equipment data and the ability to interact with that equipment into a Holographic application?
+
+By adding real-time data, we empower the Digital Field Worker to read equipment trouble codes, see real-time performance data, power off equipment, reset equipment, and interact with the equipment all through the HoloLens, even when disconnected from Azure!
 
 # Scenario
-The prototype demonstrates the scenario of an automotive mechanic diagnosing vehicle issues using a HoloLens. Real time engine data from the OBD-II port is streamed to a HoloLens application using the MQTT protocol and an MQTT broker and displayed holographically while the mechanic views the engine. The mechanic can potentially clear the check engine light and perform other commands on the vehicle holographically.
+This prototype demonstrates a scaled-down version of the Digital Field Worker scenario; specifically, an automotive mechanic diagnosing vehicle issues using a HoloLens. Real time engine data from the OBD-II port is streamed to a HoloLens application using Azure Sphere over the MQTT protocol to an MQTT broker and displayed holographically while the mechanic views the engine. The mechanic can potentially clear the check engine light and perform other commands on the vehicle holographically. Dynamics 365 guides can be added to provide repair instructions for mechanic.
 
-This specific scenario can be expanded to many other types of equipment and industry verticals. For example, an aircraft mechanic can holographically view real-time data streaming from an idling aircraft engine while standing at a safe distance. A repair technician for a office tower backup generator can diagnose, start, stop, and interact with the generator holographically. 
+This specific scenario can be expanded to many other types of equipment and industry verticals. For example, an aircraft mechanic can holographically view real-time data streaming from an idling aircraft engine while standing at a safe distance. A repair technician for a office tower backup generator can diagnose, start, stop, and interact with the generator holographically.
 
-The MQTT broker software would run on a device installed at the facility and receive telemetry from numerous pieces of equipment over MQTT. As the worker wearing a HoloLens walks up to a piece of equipment, the HoloLens identifies the equipment (e.g. QR Code, Spatial Anchors, etc.) and connects to the MQTT broker and topic the equipment is sending to. ***TODO detail this out. Maybe a sequence diagram?*** See https://docs.microsoft.com/en-us/windows/mixed-reality/coordinate-systems
+The MQTT broker software can run on any device installed at the facility and receive telemetry from numerous pieces of equipment at the facility. As the worker, wearing a HoloLens, walks up to a piece of equipment, the HoloLens identifies the equipment (e.g. QR Code, etc.) and connects to the MQTT broker and MQTT topic the equipment is connected to.
 
 # Video
 
-ToDo (Kevin & Steven) - Embed link to Youtube video
+[![HoloLens OBD-II Video](https://img.youtube.com/vi/6SPGQblTw3o/0.jpg)](http://www.youtube.com/watch?v=6SPGQblTw3o)
 
 # Architecture
 
 The architecture for this project is depicted below and described in the following sections:
 
-![Architecture](/media/overview_sphere.png "Architecture")
+![Architecture](/media/overview.png "Architecture")
 
 ## HoloLens
 
@@ -46,7 +53,7 @@ Build a Visual Studio solution
 - Press build
 
 Build to HoloLens
-- Plug the HoloLens into the computer
+- Plug the HoloLens into the computer using the USB cable
 - Open Visual Studio solution
 - Update Solution settings
     - Solution Configuration: Release
@@ -57,7 +64,7 @@ Build to HoloLens
 Update MQTT Settings
 - Update MQTT settings by navigating to the settings menu in the HoloLens app, updating the values, and pressing the connect and subscribe buttons.
 
-### Third Party Libraries Used
+### Third-Party Libraries Used
 - MRTK v2.3.0 - https://github.com/microsoft/MixedRealityToolkit-Unity/releases
     - Cross-platform toolkit for building Mixed Reality experiences.
 - JSON .NET For Unity - https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347
@@ -119,17 +126,21 @@ The code publishes coolant temperature, RPM and fuel to the ```vehicle/telemetry
 
 ## MQTT Broker
 
-The MQTT broker consists of the following:
-
-- [Raspberry Pi](https://www.raspberrypi.org/) device running Raspian
 - [Eclipse Mosquitto](https://mosquitto.org/) MQTT broker
 
-In reality, the MQTT broker can be any MQTT 3.1.1 or 3.1 compliant broker running on virtually any type of device. Note, the MQTT client lib in the sketch does not support MQTT 5.
+In reality, the MQTT broker can be any MQTT 3.1.1 compliant broker running on virtually any type of device. MQTT 5 was not tested.
 
 # Folder Structure
 
-- **HoloLens** - Contain the Unity project for the HoloLens app that includes the UI and the code to receive and display data from an MQTT broker.
+- **HoloLens** - Contains the Unity project for the HoloLens app that includes the UI and the code to receive and display data from an MQTT broker.
 - **Sphere_HighLevelApp** - Contains the Azure Sphere source code that polls a vehicle's OBD-II port for Coolant Temperature, Current RPM and Fuel and sends the data to an MQTT broker over Wi-Fi.
+- **mkr1000** - Contains Arduino source code for an mrk1000 that polls a vehicle's OBD-II port for Coolant Temperature, Current RPM and Fuel and sends the data to an MQTT broker over Wi-Fi. A block diagram with wiring instructions is [here](/media/mkr1000_OBD.png).
+
+# Backlog
+
+- Update Azure Sphere firmware to make it an MQTT subscriber so HoloLens can send additional OBD-II codes and commands back to the OBD-II port (e.g. clear check engine light).
+- Incorporate QR code support to allow HoloLens to lookup vehicle information automatically, and to spatially anchor the menu (assuming QR code is a sticker, stuck in/around the engine compartment).
+- Incorporate Dynamics 365 Guides into the HoloLens app to provide repair instructions for mechanic.
 
 # References
 
