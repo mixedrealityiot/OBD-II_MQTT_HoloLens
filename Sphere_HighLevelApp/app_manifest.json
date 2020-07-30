@@ -5,7 +5,7 @@
   "EntryPoint": "/bin/app",
   "CmdArgs": [],
   "Capabilities": {
-    "AllowedConnections": [ "10.38.1.129", "192.168.35.1" ],
+    "AllowedConnections": [ "10.38.1.129"],
     "Gpio": [ "$SAMPLE_BUTTON_1" ],
     "Uart": [ "$SAMPLE_UART_LOOPBACK" ]
 
