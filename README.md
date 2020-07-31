@@ -15,6 +15,8 @@ This specific scenario can be expanded to many other types of equipment and indu
 
 The MQTT broker software can run on any device installed at the facility and receive telemetry from numerous pieces of equipment at the facility. As the worker, wearing a HoloLens, walks up to a piece of equipment, the HoloLens identifies the equipment (e.g. QR Code, etc.) and connects to the MQTT broker and MQTT topic the equipment is connected to.
 
+![HoloLens Application](/media/HoloLensAppPicture1.jpg "HoloLensApp")
+
 # Video
 
 [![HoloLens OBD-II Video](https://img.youtube.com/vi/6SPGQblTw3o/0.jpg)](http://www.youtube.com/watch?v=6SPGQblTw3o)
