@@ -17,7 +17,9 @@ The MQTT broker software can run on any device installed at the facility and rec
 
 # Video
 
-[![HoloLens OBD-II Video](https://img.youtube.com/vi/6SPGQblTw3o/0.jpg)](http://www.youtube.com/watch?v=6SPGQblTw3o)
+[![Digital Field Worker](https://img.youtube.com/vi/6SPGQblTw3o/0.jpg)](http://www.youtube.com/watch?v=6SPGQblTw3o)
+
+[![HoloLens OBD-II Video](https://img.youtube.com/vi/nVmRYWZqGKI/0.jpg)](https://www.youtube.com/watch?v=nVmRYWZqGKI)
 
 # Architecture
 
