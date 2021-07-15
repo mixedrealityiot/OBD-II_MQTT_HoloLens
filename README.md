@@ -75,7 +75,7 @@ Update MQTT Settings
     - HoloLens compatible library for serialization.
 - M2Mqtt - https://www.nuget.org/packages/M2Mqtt/ 
     - Library for the MQTT client. We used .net 4.5 for this project.
-
+- Engine model - https://sketchfab.com/3d-models/disassembled-v8-engine-block-3026bd87ca3945d6829d24c86ce695f0
 
 ## OBD-II Reader
 
